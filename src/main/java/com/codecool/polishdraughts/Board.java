@@ -36,7 +36,7 @@ public class Board {
                 if (fields[i][j] == null) {
                     boardAsString += " . ";
                 } else {
-                    boardAsString += " w ";
+                    boardAsString += " " + fields[i][j].getColor()+ " ";
                 }
             }
         }
