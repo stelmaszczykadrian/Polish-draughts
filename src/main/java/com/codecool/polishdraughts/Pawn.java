@@ -10,4 +10,8 @@ public class Pawn {
         this.x = x;
         this.y = y;
     }
+
+    public String getColor() {
+        return color ? "w" : "b";
+    }
 }
