@@ -2,17 +2,18 @@ package com.codecool.polishdraughts;
 
 public class Pawn {
     private boolean color;
-    private int x;
-    private int y;
+    Coordinates position;
 
     public Pawn(boolean color, int x, int y) {
         this.color = color;
-        this.x = x;
-        this.y = y;
+        position = new Coordinates(x, y);
     }
 
     public String getColor() {
         return color ? "w" : "b";
     }
-}
 
+    public Coordinates getCoordinates(){
+        return this.position;
+    }
+}
