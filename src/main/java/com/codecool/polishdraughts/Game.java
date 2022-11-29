@@ -1,6 +1,7 @@
 package com.codecool.polishdraughts;
 import java.util.Scanner;
 
+
 public class Game {
 
     public static void Start() {
@@ -9,10 +10,10 @@ public class Game {
         boolean wrongUserInput = true;
         display.printMessage("Welcome in Polish Draughts Game!");
         while (wrongUserInput) {
-            display.printMessage("Put the size of the board. It need to be from 10 to 20.");
+            display.printSameLineMsg("Put the size of the board. It need to be from 10 to 20: ");
             String userInput = scan.nextLine();
+            display.printMessage("Your choice is: " + userInput);
             int intUserInput = Integer.parseInt(userInput);
-
             if (intUserInput >= 10 && intUserInput <= 20) {
                 wrongUserInput = false;
                 Board board = new Board(intUserInput);
@@ -20,6 +21,7 @@ public class Game {
             } else {
                 display.printMessage("Only numbers from 10 to 20 are available.Try again.");
             }
+
         }
 
     }

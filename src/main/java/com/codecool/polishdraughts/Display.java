@@ -5,4 +5,10 @@ public class Display {
         System.out.println(message);
     }
 
+    public void printSameLineMsg(String msg) {
+        System.out.print(msg);
+    }
+
+
 }
+
