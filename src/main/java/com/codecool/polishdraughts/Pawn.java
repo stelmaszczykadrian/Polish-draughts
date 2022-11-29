@@ -16,5 +16,4 @@ public class Pawn {
     public Coordinates getCoordinates(){
         return this.position;
     }
-
 }
