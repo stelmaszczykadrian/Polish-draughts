@@ -1,5 +1,7 @@
 package com.codecool.polishdraughts;
 
+import java.util.Arrays;
+
 public class Board {
     private int n;
     private Pawn[][] fields;
@@ -20,6 +22,7 @@ public class Board {
                 fields[n - 1][i] = (i % 2 == 0 ? new Pawn(false, n - 1, i) : null);
             }
         }
+        System.out.println(Arrays.deepToString(fields));
     }
 
 

@@ -15,3 +15,4 @@ public class Pawn {
         return color ? "w" : "b";
     }
 }
+
