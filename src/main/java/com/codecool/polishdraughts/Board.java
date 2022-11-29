@@ -42,4 +42,8 @@ public class Board {
         }
         return boardAsString;
     }
+
+    public void removePawn(int x, int y){
+        this.fields[x][y] = null;
+    }
 }
