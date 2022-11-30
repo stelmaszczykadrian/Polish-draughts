@@ -32,24 +32,6 @@ public class Board {
 //        System.out.println(Arrays.deepToString(fields));
     }
 
-    /* may not be used, depends on further logic of the game */
-    public ArrayList<int[]> getForbiddenPlaces() {
-        ArrayList<int[]> forbiddenPlaces = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if ((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0)) {
-                    forbiddenPlaces.add(new int[]{i, j});
-                }
-            }
-        }
-        for (int[] place: forbiddenPlaces) {
-            System.out.print("(" + place[0] + ", ");
-            System.out.print(place[1] + "), ");
-        }
-        System.out.println();
-        return forbiddenPlaces;
-    }
-
 
     @Override
     public String toString() {
@@ -76,7 +58,7 @@ public class Board {
         this.fields[x][y] = null;
     }
 
-    /* for test only */
+    
     public void setPawn(Pawn pawn) {
         fields[pawn.getCoordinates().getXCoordinate()][pawn.getCoordinates().getXCoordinate()] = pawn;
     }

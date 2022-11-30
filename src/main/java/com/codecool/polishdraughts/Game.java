@@ -6,14 +6,6 @@ import java.util.HashMap;
 
 public class Game {
 
-//    public static void main(String[] args) {
-//        Board board = new Board(11);
-//        board.setPawn(new Pawn(false, 2,2));
-//        System.out.println(board);
-//        board.getForbiddenPlaces();
-//        System.out.println(board.getField(1,1).validateMove(board, 3,3));
-//        }
-
     public static void playRound(Board board, char currentPlayer){
         displayTurn(currentPlayer);
         Board.getStartingMove();
