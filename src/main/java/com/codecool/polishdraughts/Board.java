@@ -1,11 +1,10 @@
 package com.codecool.polishdraughts;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Board {
     private int n;
-    private static Pawn[][] fields;
+    private Pawn[][] fields;
 
     /* Option 1 */
     public Pawn getField(int x, int y) {
@@ -32,24 +31,6 @@ public class Board {
 //        System.out.println(Arrays.deepToString(fields));
     }
 
-    /* may not be used, depends on further logic of the game */
-    public ArrayList<int[]> getForbiddenPlaces() {
-        ArrayList<int[]> forbiddenPlaces = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if ((i % 2 == 0 && j % 2 != 0) || (i % 2 != 0 && j % 2 == 0)) {
-                    forbiddenPlaces.add(new int[]{i, j});
-                }
-            }
-        }
-        for (int[] place: forbiddenPlaces) {
-            System.out.print("(" + place[0] + ", ");
-            System.out.print(place[1] + "), ");
-        }
-        System.out.println();
-        return forbiddenPlaces;
-    }
-
 
     @Override
     public String toString() {
@@ -64,7 +45,7 @@ public class Board {
                 if (fields[i][j] == null) {
                     boardAsString += " . ";
                 } else {
-                    boardAsString += " " + fields[i][j].getColor()+ " ";
+                    boardAsString += " " + fields[i][j].getColorLetter()+ " ";
                 }
             }
         }
@@ -78,40 +59,49 @@ public class Board {
 
     /* for test only */
     public void setPawn(Pawn pawn) {
-        fields[pawn.getCoordinates().getXCoordinate()][pawn.getCoordinates().getXCoordinate()] = pawn;
+        fields[pawn.getCoordinates().getXCoordinate()][pawn.getCoordinates().getYCoordinate()] = pawn;
     }
 
-    public static int[] getStartingMove() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the starting position:");
-        String position = scanner.nextLine().toUpperCase();
 
-        while (!isValid(position, fields)) {
-            System.out.print("Wrong coordinates! Enter correct position: ");
-            position = scanner.nextLine().toUpperCase();
-        }
-        String[] coordinates = position.split("", 2);
-        int firstCoordinate = position.charAt(0) - 65;
-        System.out.println(firstCoordinate);
-        int secondCoordinate = Integer.parseInt(coordinates[1]) - 1;
-        System.out.println(secondCoordinate);
+    // private na public, bo wywołujemy spoza klasy Board
+    // bez static bo static wtedy gdy chcemy używać metody bez instancji obiektu
+    // zmiana nazwy, bo sugerowała, że dotyczy samego Boardu (jesteśmy w tej klasie)
+    // wyrzucenie Pawn[][] z parametrów, bo rozmiar mamy zdefiniowany w tej klasie jako n
 
-        return new int[]{firstCoordinate, secondCoordinate};
-    }
-    private static boolean isValid(String str, Pawn[][] board) {
-        if (str.length() != 2 && str.length() != 3) return false;
-        char col = str.charAt(0);
-        if (col < 'A' || col >= 'A' + board[0].length) {
-            return false;
+//    public boolean isValidPosition(String str) {
+//        if (str.length() != 2 && str.length() != 3) return false;
+//        char col = str.charAt(0);
+//        if (col < 'A' || col >= 'A' + n) {
+//            return false;
+//        }
+//        try {
+//            int row = Integer.parseInt(str.substring(1));
+//            if (row < 1 || row > n) {
+//                return false;
+//            }
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
+//        return true;
+//    }
+
+    public Coordinates getValidPosition(String str) {
+        if (str.length() != 2 && str.length() != 3) return null;
+        char row = str.charAt(0);
+        if (row < 'A' || row >= 'A' + n) {
+            return null;
         }
+        int col;
         try {
-            int row = Integer.parseInt(str.substring(1));
-            if (row < 1 || row > board.length) {
-                return false;
+            col = Integer.parseInt(str.substring(1));
+            if (col < 1 || col > n) {
+                return null;
             }
         } catch (NumberFormatException e) {
-            return false;
+            return null;
         }
-        return true;
+        return new Coordinates(row - 'A', col - 1);
     }
 }
+
+

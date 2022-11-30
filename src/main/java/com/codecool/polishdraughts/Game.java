@@ -1,21 +1,13 @@
 package com.codecool.polishdraughts;
 import java.util.Scanner;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Game {
 
-//    public static void main(String[] args) {
-//        Board board = new Board(11);
-//        board.setPawn(new Pawn(false, 2,2));
-//        System.out.println(board);
-//        board.getForbiddenPlaces();
-//        System.out.println(board.getField(1,1).validateMove(board, 3,3));
-//        }
+    Board board;
 
+    boolean currentPlayer = true;
 
-    public static void Start() {
+    public void start() {
         Display display = new Display();
         Scanner scan = new Scanner(System.in);
         boolean wrongUserInput = true;
@@ -27,11 +19,67 @@ public class Game {
             int intUserInput = Integer.parseInt(userInput);
             if (intUserInput >= 10 && intUserInput <= 20) {
                 wrongUserInput = false;
-                Board board = new Board(intUserInput);
+                board = new Board(intUserInput);
                 System.out.println(board);
             } else {
                 display.printMessage("Only numbers from 10 to 20 are available.Try again.");
             }
         }
     }
+
+    // zmienić nazwę na getStartingPosition
+    public Coordinates getStartingMove() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the starting position:");
+        String position = scanner.nextLine().toUpperCase();
+
+        Coordinates coordinates;
+        while ((coordinates = board.getValidPosition(position)) == null
+                || !validateStartingPosition(coordinates)) {
+            System.out.print("Wrong coordinates! Enter correct position: ");
+            position = scanner.nextLine().toUpperCase();
+        }
+
+        return coordinates;
+    }
+
+    public Coordinates getEndingPosition() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the ending position:");
+        String position = scanner.nextLine().toUpperCase();
+        Coordinates coordinates;
+        while ((coordinates = board.getValidPosition(position)) == null) {
+            System.out.print("Wrong coordinates! Enter correct position: ");
+            position = scanner.nextLine().toUpperCase();
+        }
+        return coordinates;
+    }
+
+    public boolean validateStartingPosition(Coordinates coordinates) {
+        Pawn pawn = board.getField(coordinates.getXCoordinate(), coordinates.getYCoordinate());
+        if (pawn != null && pawn.getColor() == currentPlayer) {
+            return true;
+        }
+        return false;
+    }
+
+    public void tryToMakeMove(){
+        Coordinates coordinatesStart = getStartingMove();
+        Coordinates coordinatesEnd = getEndingPosition();
+        Pawn pawn = board.getField(coordinatesStart.getXCoordinate(), coordinatesStart.getYCoordinate());
+        while (!pawn.validateMove(board, coordinatesEnd.getXCoordinate(), coordinatesEnd.getYCoordinate())) {
+            coordinatesEnd = getEndingPosition();
+        }
+        board.removePawn(coordinatesStart.getXCoordinate(), coordinatesStart.getYCoordinate());
+        pawn.setCoordinates(coordinatesEnd);
+        board.setPawn(pawn);
+        System.out.println(board);
+        }
+
+
+    public boolean checkForWinner() {
+        return false;
+    }
+
+
 }
