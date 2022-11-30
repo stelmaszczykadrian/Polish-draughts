@@ -9,12 +9,20 @@ public class Pawn {
         position = new Coordinates(x, y);
     }
 
-    public String getColor() {
+    public String getColorLetter() {
         return color ? "w" : "b";
+    }
+
+    public boolean getColor() {
+        return color;
     }
 
     public Coordinates getCoordinates() {
         return this.position;
+    }
+
+    public void setCoordinates(Coordinates position) {
+        this.position = position;
     }
 
     public boolean validateMove(Board board, int endPosX, int endPosY) {
