@@ -12,7 +12,7 @@ public class Game {
         System.out.println(board);
     }
 
-    private static void displayTurn(boolean currentPlayer) {
+    private void displayTurn(boolean currentPlayer) {
         if (currentPlayer){
             System.out.println("White turn!");
         }
@@ -22,8 +22,16 @@ public class Game {
     }
 
     public void start() {
-        Scanner scan = new Scanner(System.in);
         System.out.println("Welcome in Polish Draughts Game! White starts!");
+        getBoardSize();
+        while (!checkForWinner()) {
+            playRound(board, currentPlayer);
+            currentPlayer = !currentPlayer;
+        }
+    }
+
+    private void getBoardSize() {
+        Scanner scan = new Scanner(System.in);
         boolean wrongUserInput = true;
         while (wrongUserInput) {
             System.out.print("Put the size of the board. It need to be from 10 to 20: ");
@@ -38,13 +46,7 @@ public class Game {
                 System.out.println("Only numbers from 10 to 20 are available.Try again.");
             }
         }
-        while (!checkForWinner()) {
-            playRound(board, currentPlayer);
-            currentPlayer = currentPlayer == true ? false : true;
-        }
-
     }
-
 
     public Coordinates getStartingPosition() {
         Scanner scanner = new Scanner(System.in);
