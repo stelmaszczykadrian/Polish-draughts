@@ -6,8 +6,6 @@ public class Start {
         Game game = new Game();
         game.start();
         game.tryToMakeMove();
-
-
     }
 
 }
