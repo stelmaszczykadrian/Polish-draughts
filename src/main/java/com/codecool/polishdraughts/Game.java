@@ -72,7 +72,6 @@ public class Game {
             System.out.print("Wrong coordinates! Enter correct position: ");
             position = scanner.nextLine().toUpperCase();
         }
-        System.out.println(coordinates);
         return coordinates;
     }
 

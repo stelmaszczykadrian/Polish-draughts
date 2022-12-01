@@ -6,7 +6,6 @@ public class Board {
 
     /* Option 1 */
     public Pawn getField(int x, int y) {
-        System.out.println(fields[x][y]);
         return fields[x][y];
     }
 
