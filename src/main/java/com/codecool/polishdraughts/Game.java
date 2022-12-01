@@ -1,22 +1,19 @@
 package com.codecool.polishdraughts;
 import java.util.Scanner;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Game {
 
-    public static void playRound(Board board, char currentPlayer){
+    Board board;
+
+    public void playRound(Board board, boolean currentPlayer){
         displayTurn(currentPlayer);
-        Board.getStartingMove();
-//        Board.getEndingMove();
-//        metoda tryToMakeMove
-//        metoda movePawn
+        tryToMakeMove();
         System.out.println(board);
     }
 
-    private static void displayTurn(char currentPlayer) {
-        if (currentPlayer == 'w'){
+    boolean currentPlayer = true;
+    private static void displayTurn(boolean currentPlayer) {
+        if (currentPlayer){
             System.out.println("White turn!");
         }
         else {
@@ -24,12 +21,12 @@ public class Game {
         }
     }
 
-    public static void start() {
+    public void start() {
         Display display = new Display();
         Scanner scan = new Scanner(System.in);
-        Board board = new Board(10);
         display.printMessage("Welcome in Polish Draughts Game! White starts!");
         boolean wrongUserInput = true;
+        display.printMessage("Welcome in Polish Draughts Game!");
         while (wrongUserInput) {
             display.printSameLineMsg("Put the size of the board. It need to be from 10 to 20: ");
             String userInput = scan.nextLine();
@@ -44,18 +41,68 @@ public class Game {
             }
         }
 
-        char currentPlayer = 'w';
+        boolean currentPlayer = true;
 
-//        wersja dla testu
-        while (true) {
+        while (!checkForWinner()) {
             playRound(board, currentPlayer);
-            currentPlayer = currentPlayer == 'w' ? 'b' : 'w';
+            currentPlayer = currentPlayer == true ? false : true;
         }
 
-//        wersja końcowa, jak będziemy mieli metodę checkForWinner()
-//        while (checkForWinner() == false) {
-//            playRound(board, currentPlayer);
-//            currentPlayer = currentPlayer == 'w' ? 'b' : 'w';
-//        }
     }
+
+
+    public Coordinates getStartingPosition() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the starting position:");
+        String position = scanner.nextLine().toUpperCase();
+
+        Coordinates coordinates;
+        while ((coordinates = board.getValidPosition(position)) == null
+                || !validateStartingPosition(coordinates)) {
+            System.out.print("Wrong coordinates! Enter correct position: ");
+            position = scanner.nextLine().toUpperCase();
+        }
+
+        return coordinates;
+    }
+
+    public Coordinates getEndingPosition() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the ending position:");
+        String position = scanner.nextLine().toUpperCase();
+        Coordinates coordinates;
+        while ((coordinates = board.getValidPosition(position)) == null) {
+            System.out.print("Wrong coordinates! Enter correct position: ");
+            position = scanner.nextLine().toUpperCase();
+        }
+        System.out.println(coordinates);
+        return coordinates;
+    }
+
+    public boolean validateStartingPosition(Coordinates coordinates) {
+        Pawn pawn = board.getField(coordinates.getXCoordinate(), coordinates.getYCoordinate());
+        if (pawn != null && pawn.getColor() == currentPlayer) {
+            return true;
+        }
+        return false;
+    }
+
+    public void tryToMakeMove(){
+        Coordinates coordinatesStart = getStartingPosition();
+        Coordinates coordinatesEnd = getEndingPosition();
+        Pawn pawn = board.getField(coordinatesStart.getXCoordinate(), coordinatesStart.getYCoordinate());
+        while (!pawn.validateMove(board, coordinatesEnd.getXCoordinate(), coordinatesEnd.getYCoordinate())) {
+            coordinatesEnd = getEndingPosition();
+        }
+        board.removePawn(coordinatesStart.getXCoordinate(), coordinatesStart.getYCoordinate());
+        pawn.setCoordinates(coordinatesEnd);
+        board.setPawn(pawn);
+        }
+
+
+    public boolean checkForWinner() {
+        return false;
+    }
+
+
 }
