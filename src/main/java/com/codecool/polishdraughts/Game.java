@@ -40,9 +40,6 @@ public class Game {
                 display.printMessage("Only numbers from 10 to 20 are available.Try again.");
             }
         }
-
-        boolean currentPlayer = true;
-
         while (!checkForWinner()) {
             playRound(board, currentPlayer);
             currentPlayer = currentPlayer == true ? false : true;
@@ -97,6 +94,7 @@ public class Game {
         board.removePawn(coordinatesStart.getXCoordinate(), coordinatesStart.getYCoordinate());
         pawn.setCoordinates(coordinatesEnd);
         board.setPawn(pawn);
+//        System.out.println(board);
         }
 
 
