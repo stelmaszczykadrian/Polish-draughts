@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Game {
 
     Board board;
+    boolean currentPlayer = true;
 
     public void playRound(Board board, boolean currentPlayer){
         displayTurn(currentPlayer);
@@ -11,7 +12,6 @@ public class Game {
         System.out.println(board);
     }
 
-    boolean currentPlayer = true;
     private static void displayTurn(boolean currentPlayer) {
         if (currentPlayer){
             System.out.println("White turn!");
@@ -92,13 +92,10 @@ public class Game {
         board.removePawn(coordinatesStart.getXCoordinate(), coordinatesStart.getYCoordinate());
         pawn.setCoordinates(coordinatesEnd);
         board.setPawn(pawn);
-//        System.out.println(board);
         }
 
 
     public boolean checkForWinner() {
         return false;
     }
-
-
 }
