@@ -1,7 +1,5 @@
 package com.codecool.polishdraughts;
 
-import java.util.ArrayList;
-
 public class Board {
     private int n;
     private Pawn[][] fields;

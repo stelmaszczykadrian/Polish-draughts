@@ -22,22 +22,20 @@ public class Game {
     }
 
     public void start() {
-        Display display = new Display();
         Scanner scan = new Scanner(System.in);
-        display.printMessage("Welcome in Polish Draughts Game! White starts!");
+        System.out.println("Welcome in Polish Draughts Game! White starts!");
         boolean wrongUserInput = true;
-        display.printMessage("Welcome in Polish Draughts Game!");
         while (wrongUserInput) {
-            display.printSameLineMsg("Put the size of the board. It need to be from 10 to 20: ");
+            System.out.print("Put the size of the board. It need to be from 10 to 20: ");
             String userInput = scan.nextLine();
-            display.printMessage("Your choice is: " + userInput);
+            System.out.println("Your choice is: " + userInput);
             int intUserInput = Integer.parseInt(userInput);
             if (intUserInput >= 10 && intUserInput <= 20) {
                 wrongUserInput = false;
                 board = new Board(intUserInput);
                 System.out.println(board);
             } else {
-                display.printMessage("Only numbers from 10 to 20 are available.Try again.");
+                System.out.println("Only numbers from 10 to 20 are available.Try again.");
             }
         }
         while (!checkForWinner()) {
