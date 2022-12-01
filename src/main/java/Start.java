@@ -1,4 +1,3 @@
-import com.codecool.polishdraughts.Board;
 import com.codecool.polishdraughts.Game;
 
 public class Start {
