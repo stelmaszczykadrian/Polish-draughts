@@ -90,10 +90,17 @@ public class Game {
             coordinatesEnd = getEndingPosition();
         }
         board.removePawn(coordinatesStart.getXCoordinate(), coordinatesStart.getYCoordinate());
+        capturePawn(coordinatesStart, coordinatesEnd);
         pawn.setCoordinates(coordinatesEnd);
         board.setPawn(pawn);
-//        System.out.println(board);
         }
+
+    private void capturePawn(Coordinates coordinatesStart, Coordinates coordinatesEnd) {
+        if (Math.abs(coordinatesEnd.getXCoordinate() - coordinatesStart.getXCoordinate()) == 2) {
+            board.removePawn((coordinatesStart.getXCoordinate() + coordinatesEnd.getXCoordinate()) / 2,
+                    (coordinatesStart.getYCoordinate() + coordinatesEnd.getYCoordinate()) / 2);
+        }
+    }
 
 
     public boolean checkForWinner() {
