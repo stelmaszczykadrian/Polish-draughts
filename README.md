@@ -1,4 +1,5 @@
-### :sparkles: Polish draughts
+![polish-draughts](https://github.com/stelmaszczykadrian/Polish-draughts/assets/106514178/3925ac01-c0c7-4c05-87ff-8b2bb5db071c)
+
 <br>
 <ul>
   <li>Polish Draughts is a game for two players with ⚪️ white and ⚫️ black pawns.</li>
